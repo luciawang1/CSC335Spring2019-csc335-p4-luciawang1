@@ -9,7 +9,7 @@ It will be declared as:
 public class ArraySet<E> extends AbstractSet<E> 
 ```
 
-You are required to provide the implementations of several methods to make your map work.
+You are required to provide the implementations of several methods to make your set work.
 
 ```Java
 @Override
