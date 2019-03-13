@@ -2,7 +2,7 @@
 
 An ArraySet will be a set that is implemented using an arrays of type Object.
 
-Your ArrayMap will be a templated (generic type) that will allow Sets of any type.
+Your ArraSet will be a templated (generic type) that will allow Sets of any type.
 It will be declared as:
 
 ```Java
