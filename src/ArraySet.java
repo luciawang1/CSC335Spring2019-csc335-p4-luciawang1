@@ -3,16 +3,21 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * @author pwang
+ * Set implemented with an array and an iterator object
+ * 
+ * @author Lucia Wang
  *
  * @param <E>
  */
 
 public class ArraySet<E> extends AbstractSet<E> {
 
-	private int size;
-	public Object[] set;
+	private int size; // number of elements in the set
+	public Object[] set; // array to store the set
 
+	/**
+	 * Constructor: constructs an ArraySet object and initializes size and set
+	 */
 	public ArraySet() {
 		size = 0;
 		set = new Object[1];
@@ -23,10 +28,10 @@ public class ArraySet<E> extends AbstractSet<E> {
 	 */
 	class ArraySetIterator<T> implements Iterator<T> {
 
-		private boolean removable = false;
-		int pos = 0;
+		private boolean removable = false; // removable is only true if next has been called right before remove is
+											// called
+		int pos = 0; // current position we are iterating at
 
-		@Override
 		/**
 		 * hasNext(): Determines if iterator has a next element
 		 * 
@@ -35,15 +40,14 @@ public class ArraySet<E> extends AbstractSet<E> {
 		 * 
 		 * @return true if there is a next element, false otherwise
 		 */
+		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
 			removable = false;
 			if (pos < size)
 				return true;
 			return false;
 		}
 
-		@Override
 		/**
 		 * next(): Returns the next element
 		 * 
@@ -53,6 +57,8 @@ public class ArraySet<E> extends AbstractSet<E> {
 		 * @return the next element, or NoSuchElementException if there is no next
 		 *         element
 		 */
+		@SuppressWarnings("unchecked")
+		@Override
 		public T next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
@@ -62,7 +68,6 @@ public class ArraySet<E> extends AbstractSet<E> {
 			return (T) set[pos - 1];
 		}
 
-		@Override
 		/**
 		 * remove(): Removes the element at the current position of iterator
 		 * 
@@ -70,6 +75,7 @@ public class ArraySet<E> extends AbstractSet<E> {
 		 * index has to be decremented bc next increments it, so then we can remove the
 		 * element by shifting all the other elements in the set
 		 */
+		@Override
 		public void remove() {
 			if (!removable)
 				throw new IllegalStateException();
@@ -82,7 +88,6 @@ public class ArraySet<E> extends AbstractSet<E> {
 		}
 	}
 
-	@Override
 	/**
 	 * iterator(): Creates an iterator object
 	 * 
@@ -90,11 +95,11 @@ public class ArraySet<E> extends AbstractSet<E> {
 	 * 
 	 * @return Iterator<E> object that walks over the set
 	 */
+	@Override
 	public Iterator<E> iterator() {
 		return new ArraySetIterator<E>();
 	}
 
-	@Override
 	/**
 	 * size(): returns size of ArraySet
 	 * 
@@ -103,11 +108,11 @@ public class ArraySet<E> extends AbstractSet<E> {
 	 * 
 	 * @return size (int)
 	 */
+	@Override
 	public int size() {
 		return size;
 	}
 
-	@Override
 	/**
 	 * add(): adds an element
 	 * 
@@ -116,6 +121,7 @@ public class ArraySet<E> extends AbstractSet<E> {
 	 * @return true if if the element was successfully added to the set, false if it
 	 *         was already in the set
 	 */
+	@Override
 	public boolean add(E element) {
 		for (int i = 0; i < size; i++) {
 			if (set[i].equals(element))
@@ -127,7 +133,6 @@ public class ArraySet<E> extends AbstractSet<E> {
 		set[size] = element;
 		size++;
 		return true;
-
 	}
 
 	/**
@@ -144,7 +149,6 @@ public class ArraySet<E> extends AbstractSet<E> {
 		set = newSet;
 	}
 
-	@Override
 	/**
 	 * remove(): Removes the Object elem from the array
 	 * 
@@ -154,6 +158,7 @@ public class ArraySet<E> extends AbstractSet<E> {
 	 * @return true if the Object elem has been successfully removed from the array,
 	 *         false if it wasn't in the array to begin with
 	 */
+	@Override
 	public boolean remove(Object elem) {
 		int index = -1;
 		for (int i = 0; i < size; i++) {
